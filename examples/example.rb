@@ -14,4 +14,10 @@ class Code
 
     self
   end
+
+  # @param recover [Boolean].
+  # @return [Array<Token>]
+  def tokenize(recover: false)
+    parser.tokenize(source, recover: recover)
+  end
 end
