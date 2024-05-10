@@ -2,7 +2,7 @@
 
 require_relative 'subscriptable'
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module Converter
     class CodeVisitor < Prism::Visitor
       include Subscriptable
@@ -176,7 +176,7 @@ module YardToRbsInlineExample
       #:: (Array[String], node: Prism::Node) -> String
       def convert_types(yard_type_literals)
         new_types = yard_type_literals.map do |literal|
-          yard_type = YardToRbsInlineExample::YardType::Parser.new.parse(literal)
+          yard_type = YardToRbsInline::YardType::Parser.new.parse(literal)
           convert_yard_type(yard_type)
         rescue Racc::ParseError, Yoda::Parsing::YardType::Scanner::ScanError => e
           # STDERR.puts "Cannot parse #{literal}: #{e}"
@@ -188,7 +188,7 @@ module YardToRbsInlineExample
         new_types.empty? ? 'untyped' : new_types.join(' | ')
       end
 
-      #:: (YardToRbsInlineExample::YardType::Ast::node, node: Prism::Node) -> String
+      #:: (YardToRbsInline::YardType::Ast::node, node: Prism::Node) -> String
       def convert_yard_type(yard_type)
         case yard_type
         in YardType::Ast::Type(name:)

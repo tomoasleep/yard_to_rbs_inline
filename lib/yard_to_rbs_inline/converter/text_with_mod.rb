@@ -1,6 +1,6 @@
 # rbs_inline: enabled
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module Converter
     PrependLine = Data.define(:line_num, :content) do
       #:: (Prism::Node, String) -> PrependLine

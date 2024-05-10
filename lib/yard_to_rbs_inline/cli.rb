@@ -2,7 +2,7 @@
 
 require 'optparse'
 
-module YardToRbsInlineExample
+module YardToRbsInline
   class Cli
     def self.start(argv)
       opt = OptionParser.new

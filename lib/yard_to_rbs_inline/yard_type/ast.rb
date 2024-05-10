@@ -1,6 +1,6 @@
 # rbs_inline: enabled
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module YardType
     module Ast
       # @rbs!

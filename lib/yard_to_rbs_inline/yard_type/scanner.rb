@@ -2,7 +2,7 @@
 
 require 'strscan'
 
-module YardToRbsInlineExample::YardType
+module YardToRbsInline::YardType
   class Scanner
     class ScanError < StandardError; end
 

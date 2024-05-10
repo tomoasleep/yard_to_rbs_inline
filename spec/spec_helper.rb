@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "yard_to_rbs_inline_example"
+require "yard_to_rbs_inline"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

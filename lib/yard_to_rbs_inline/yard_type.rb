@@ -1,6 +1,6 @@
 # rbs_inline: enabled
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module YardType
     require_relative 'yard_type/ast'
     require_relative 'yard_type/parser'

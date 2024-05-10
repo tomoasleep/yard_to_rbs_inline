@@ -1,7 +1,7 @@
 require 'prism'
 require 'yard'
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module Converter
     def self.convert(file, dry_run: false)
       result = Prism.parse_file(file)

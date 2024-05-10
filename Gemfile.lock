@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    yard_to_rbs_inline_example (0.1.0)
+    yard_to_rbs_inline (0.1.0)
       yard
 
 GEM
@@ -55,7 +55,7 @@ DEPENDENCIES
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
-  yard_to_rbs_inline_example!
+  yard_to_rbs_inline!
 
 BUNDLED WITH
    2.4.17

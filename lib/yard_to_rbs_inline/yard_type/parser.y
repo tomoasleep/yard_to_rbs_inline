@@ -1,4 +1,4 @@
-class YardToRbsInlineExample::YardType::Parser
+class YardToRbsInline::YardType::Parser
 start expression
 rule
   expression : type_list { result = Ast::UnionType.build(val[0]) }

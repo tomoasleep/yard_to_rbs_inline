@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-require_relative "lib/yard_to_rbs_inline_example/version"
+require_relative "lib/yard_to_rbs_inline/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "yard_to_rbs_inline_example"
-  spec.version = YardToRbsInlineExample::VERSION
+  spec.name = "yard_to_rbs_inline"
+  spec.version = YardToRbsInline::VERSION
   spec.authors = ["Tomoya Chiba"]
   spec.email = ["tomo.asleep@gmail.com"]
 
   spec.summary = "Converter of yard to rbs-inline"
   spec.description = "Converter of yard to rbs-inline"
-  spec.homepage = "https://github.com/tomoasleep/yard_to_rbs_inline_example"
+  spec.homepage = "https://github.com/tomoasleep/yard_to_rbs_inline"
   spec.required_ruby_version = ">= 2.6.0"
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/tomoasleep/yard_to_rbs_inline_example"
-  spec.metadata["changelog_uri"] = "https://github.com/tomoasleep/yard_to_rbs_inline_example/blob/main/CHANGELOG.md"
+  spec.metadata["source_code_uri"] = "https://github.com/tomoasleep/yard_to_rbs_inline"
+  spec.metadata["changelog_uri"] = "https://github.com/tomoasleep/yard_to_rbs_inline/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

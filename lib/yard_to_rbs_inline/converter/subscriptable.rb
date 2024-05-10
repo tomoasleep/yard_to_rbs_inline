@@ -1,6 +1,6 @@
 # rbs_inline: enabled
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module Converter
     module Subscriptable
       # @rbs!

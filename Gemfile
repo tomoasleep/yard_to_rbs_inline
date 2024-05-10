@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in yard_to_rbs_inline_example.gemspec
+# Specify your gem's dependencies in yard_to_rbs_inline.gemspec
 gemspec
 
 gem "rake", "~> 13.0"

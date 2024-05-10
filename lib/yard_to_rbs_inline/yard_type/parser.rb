@@ -8,7 +8,7 @@ require 'racc/parser.rb'
 
 # Note: Prepend magic comment by script because default comments are prepended to header.
 
-module YardToRbsInlineExample
+module YardToRbsInline
   module YardType
     class Parser < Racc::Parser
 
@@ -291,7 +291,7 @@ end
 
     end   # class Parser
   end   # module YardType
-end   # module YardToRbsInlineExample
+end   # module YardToRbsInline
 
 
 module Yoda
