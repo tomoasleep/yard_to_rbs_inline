@@ -1,15 +1,21 @@
 # yard → rbs-inline
 
-Rewrite YARD type annotations in Your codes to rbs-inline.
+Rewrite [YARD type annotations](https://yardoc.org/types.html) in your codes to [rbs-inline](https://github.com/soutaro/rbs-inline).
 
 ## Usage
 
-```console
-bundle
+Install this gem with the following command.
 
+```console
+gem install yard_to_rbs_inline
+```
+
+Then, run the following command to insert rbs-inline comments to your codes.
+
+```console
 # Print rewrited code to stdout.
-./exe/yard-rbs-inline --dry-run your-file.rb
+yard-rbs-inline --dry-run your-file.rb
 
 # Overwrite files.
-./exe/yard-rbs-inline your-file.rb
+yard-rbs-inline your-file.rb
 ```
