@@ -14,8 +14,8 @@ Then, run the following command to insert rbs-inline comments to your codes.
 
 ```console
 # Print rewrited code to stdout.
-yard-rbs-inline --dry-run your-file.rb
+yard_to_rbs_inline --dry-run your-file.rb
 
 # Overwrite files.
-yard-rbs-inline your-file.rb
+yard_to_rbs_inline your-file.rb
 ```
