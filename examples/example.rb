@@ -7,7 +7,7 @@ class Code
     @source = source
   end
 
-  # @param source [String]
+  # @param new_source [String]
   # @return [Code]
   def rewrite(new_source)
     @source = new_source
