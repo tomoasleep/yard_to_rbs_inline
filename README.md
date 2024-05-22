@@ -1,6 +1,6 @@
 # yard → rbs-inline
 
-Rewrite [YARD type annotations](https://yardoc.org/types.html) in your codes to [rbs-inline](https://github.com/soutaro/rbs-inline).
+Insert [rbs-inline](https://github.com/soutaro/rbs-inline) comments from [YARD type annotations](https://yardoc.org/types.html) in your codes.
 
 ## Usage
 
@@ -19,3 +19,7 @@ yard_to_rbs_inline --dry-run your-file.rb
 # Overwrite files.
 yard_to_rbs_inline your-file.rb
 ```
+
+## Examples
+
+See: [examples](./examples)
