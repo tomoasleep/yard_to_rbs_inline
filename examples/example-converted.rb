@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 # rbs_inline: enabled
 
 class Code
   # @return [String]
-  attr_reader :source #:: String
+  attr_reader :source #: String
 
   # @param source [String]
-  #:: (String source) -> untyped
+  #: (String source) -> untyped
   def initialize(source)
     @source = source
   end
 
   # @param new_source [String]
   # @return [Code]
-  #:: (String new_source) -> Code
+  #: (String new_source) -> Code
   def rewrite(new_source)
     @source = new_source
 
@@ -21,7 +23,7 @@ class Code
 
   # @param recover [Boolean].
   # @return [Array<Token>]
-  #:: (?recover: bool) -> Array[Token]
+  #: (?recover: bool) -> Array[Token]
   def tokenize(recover: false)
     parser.tokenize(source, recover: recover)
   end

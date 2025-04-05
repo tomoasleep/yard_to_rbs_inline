@@ -1,5 +1,7 @@
-require 'prism'
-require 'yard'
+# frozen_string_literal: true
+
+require "prism"
+require "yard"
 
 module YardToRbsInline
   module Converter

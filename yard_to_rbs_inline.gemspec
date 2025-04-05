@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Converter of yard to rbs-inline"
   spec.description = "Converter of yard to rbs-inline"
   spec.homepage = "https://github.com/tomoasleep/yard_to_rbs_inline"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 

@@ -1,5 +1,26 @@
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.2
+  Exclude:
+    - lib/yard_to_rbs_inline/yard_type/parser.rb # Generated file by racc
+
+Lint/MissingSuper:
+  Enabled: false
+
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
+Lint/ShadowingOuterLocalVariable:
+  Enabled: false
+
+Naming/FileName:
+  Exclude:
+    - examples/**
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringConcatenation:
+  Mode: conservative
 
 Style/StringLiterals:
   Enabled: true
@@ -9,5 +30,11 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Layout/LeadingCommentSpace:
+  AllowRBSInlineAnnotation: true
+
 Layout/LineLength:
   Max: 120
+
+Metrics:
+  Enabled: false

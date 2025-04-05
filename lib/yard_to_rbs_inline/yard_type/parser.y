@@ -32,14 +32,14 @@ end
 
 ---- inner
 
-#:: (String) -> Ast::node
+#: (String) -> Ast::node
 def parse(string)
   @tokens = Scanner.new(string).to_racc_tokens
 
   do_parse()
 end
 
-#:: () -> untyped
+#: () -> untyped
 def next_token
   @tokens.shift
 end

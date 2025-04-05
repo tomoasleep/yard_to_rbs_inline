@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Code
   # @return [String]
   attr_reader :source

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rbs_inline: enabled
 
 module YardToRbsInline
@@ -13,7 +15,7 @@ module YardToRbsInline
       TupleType = Struct.new(:container_type, :types, keyword_init: true)
       HashType = Struct.new(:container_type, :type_pair, keyword_init: true)
       UnionType = Struct.new(:types, keyword_init: true) do
-        #:: (untyped types) -> untyped
+        #: (untyped types) -> untyped
         def self.build(types)
           if types.length == 1
             types.first
