@@ -8,13 +8,18 @@ module YardToRbsInline
       # @rbs!
       #   type node = Type | LiteralType | DuckType | GenericType | TupleType | HashType | UnionType
 
-      Type = Struct.new(:name, keyword_init: true)
-      LiteralType = Struct.new(:content, keyword_init: true)
-      DuckType = Struct.new(:name, keyword_init: true)
-      GenericType = Struct.new(:container_type, :types, keyword_init: true)
-      TupleType = Struct.new(:container_type, :types, keyword_init: true)
-      HashType = Struct.new(:container_type, :type_pair, keyword_init: true)
-      UnionType = Struct.new(:types, keyword_init: true) do
+      Type = Data.define(:name)
+      LiteralType = Data.define(:content)
+      DuckType = Data.define(:name)
+      GenericType = Data.define(:container_type, :types)
+      TupleType = Data.define(:container_type, :types)
+      HashType = Data.define(:container_type, :type_pair)
+
+      class UnionType < Data.define(:types)
+        # @rbs!
+        #   def initialize: (types: Array[node]) -> void
+        #   attr_reader types: Array[node]
+
         #: (untyped types) -> untyped
         def self.build(types)
           if types.length == 1

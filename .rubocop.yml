@@ -1,3 +1,6 @@
+require:
+  - rubocop-rbs_inline
+
 AllCops:
   TargetRubyVersion: 3.2
   Exclude:
@@ -32,6 +35,7 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true
+  AllowSteepAnnotation: true
 
 Layout/LineLength:
   Max: 120

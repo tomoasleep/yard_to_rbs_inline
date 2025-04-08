@@ -12,13 +12,16 @@ module YardToRbsInline
       # @!rbs
       #   type mod = PrependLine | AppendLineContent
 
+      # @rbs @source: Prism::Source
       attr_reader :source #: Prism::Source
 
-      attr_reader :comments #: Array[Prism::InlineComment]
+      # @rbs @comments: Array[Prism::comment]
+      attr_reader :comments #: Array[Prism::comment]
 
+      # @rbs @text_with_mod: TextWithMod
       attr_reader :text_with_mod #: TextWithMod
 
-      #: (source: Prism::Source, comments: Array[Prism::InlineComment]) -> untyped
+      #: (source: Prism::Source, comments: Array[Prism::comment]) -> untyped
       def initialize(source:, comments:)
         @source = source
         @comments = comments
@@ -73,8 +76,8 @@ module YardToRbsInline
       def build_return_sig(docstring)
         return_tag = docstring.tag("return") #: YARD::Tags::Tag | nil
 
-        if return_tag&.types
-          convert_types(return_tag.types)
+        if (types = return_tag&.types)
+          convert_types(types)
         else
           "untyped"
         end
@@ -98,8 +101,11 @@ module YardToRbsInline
           param_tags.find { |tag| tag.name == name.to_s } if name
         end
 
-        param_sigs = []
+        param_sigs = [] #: Array[String]
         params.requireds.each do |param|
+          param = TypeUtils.narrow_with_name(param)
+          next unless param
+
           tag = find_tag.call(param.name)
 
           param_sigs << if tag&.types
@@ -119,7 +125,7 @@ module YardToRbsInline
                         end
         end
 
-        if (param = params.rest)
+        if (param = TypeUtils.narrow_with_name(params.rest))
           tag = find_tag.call(param.name)
 
           param_sigs << if tag&.types
@@ -130,6 +136,9 @@ module YardToRbsInline
         end
 
         params.posts.each do |param|
+          param = TypeUtils.narrow_with_name(param)
+          next unless param
+
           tag = find_tag.call(param.name)
 
           param_sigs << if tag&.types
@@ -157,7 +166,8 @@ module YardToRbsInline
                         end
         end
 
-        if (param = params.keyword_rest)
+        if (param = TypeUtils.narrow_with_name(params.keyword_rest))
+
           tag = find_tag.call(param.name)
 
           param_sigs << if tag&.types
@@ -171,12 +181,12 @@ module YardToRbsInline
         param_sigs.map(&:strip).join(", ")
       end
 
-      #: (Array[String], node: Prism::Node) -> String
+      #: (Array[String]) -> String
       def convert_types(yard_type_literals)
         new_types = yard_type_literals.map do |literal|
           yard_type = YardToRbsInline::YardType::Parser.new.parse(literal)
           convert_yard_type(yard_type)
-        rescue Racc::ParseError, Yoda::Parsing::YardType::Scanner::ScanError => e
+        rescue Racc::ParseError, YardType::Scanner::ScanError => e
           # STDERR.puts "Cannot parse #{literal}: #{e}"
           emit_error_message("Cannot parse #{literal}: #{e}")
 
@@ -186,7 +196,7 @@ module YardToRbsInline
         new_types.empty? ? "untyped" : new_types.join(" | ")
       end
 
-      #: (YardToRbsInline::YardType::Ast::node, node: Prism::Node) -> String
+      #: (YardToRbsInline::YardType::Ast::node) -> String
       def convert_yard_type(yard_type)
         case yard_type
         in YardType::Ast::Type(name:)
@@ -235,11 +245,11 @@ module YardToRbsInline
         gather_comment_targets.call(node).map(&:start_line).min || 0
       end
 
-      #: (Prism::Node) -> Array[Prism::InlineComment]
+      #: (Prism::Node) -> Array[Prism::comment]
       def annotations_for(node)
         start_line = start_line_of_node(node)
 
-        matched_comments = []
+        matched_comments = [] #: Array[Prism::comment]
         matched_comments += comments_by_line[start_line] if comments_by_line[start_line]
 
         (start_line - 1).downto(1) do |line|
@@ -252,14 +262,35 @@ module YardToRbsInline
         matched_comments
       end
 
-      #: (Prism::InlineComment) -> String
+      #: (Prism::comment) -> String
       def source_for_comment(comment)
         source.slice(comment.location.start_offset, comment.location.length)
       end
 
-      #: () -> Hash[Integer, Array[Prism::InlineComment]]
+      # @rbs @comments_by_line: Hash[Integer, Array[Prism::comment]]?
+
+      #: () -> Hash[Integer, Array[Prism::comment]]
       def comments_by_line
         @comments_by_line ||= comments.group_by { |comment| comment.location.start_line }
+      end
+
+      module TypeUtils
+        module_function
+
+        # @rbs!
+        #   interface _WithName
+        #     def name: () -> String
+        #   end
+
+        # @rbs!
+        #   interface _RespondTo
+        #     def respond_to?: (String | Symbol) -> boolish
+        #   end
+
+        #: [T < _RespondTo] (T) -> (T & _WithName)?
+        def narrow_with_name(node)
+          node.respond_to?(:name) && node #: untyped
+        end
       end
     end
   end

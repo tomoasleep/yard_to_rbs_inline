@@ -35,24 +35,31 @@ module YardToRbsInline
         @text = text
       end
 
-      #: () -> Array[[Symbol | bool, String]]
+      #: () -> Array[[Symbol | boolish, String]]
       def to_racc_tokens
-        tokens.map { |token| [token.kind.to_s.upcase.to_sym, token.content] } + [[false, "EOS"]]
+        tokens.map do |token| #$ [Symbol | bool, String]
+          [token.kind.to_s.upcase.to_sym, token.content]
+        end + [
+          [false, "EOS"] #: [bool, String]
+        ]
       end
+
+      # @rbs @tokens: Array[Token]?
 
       #: () -> Array[Token]
       def tokens
         @tokens ||= begin
           scanner = StringScanner.new(text)
-          tokens = []
+          tokens = [] #: Array[Token]
 
           scan_step = lambda do
             TOKEN_PATTERNS.each do |kind, pattern_or_patterns|
               Array(pattern_or_patterns).each do |pattern|
-                if (matched = scanner.scan(pattern))
-                  tokens << Token.new(kind: kind, content: matched) unless kind == :spaces
-                  return
-                end
+                next unless (matched = scanner.scan(pattern))
+
+                tokens << Token.new(kind: kind, content: matched) unless kind == :spaces
+                # For now, steep parse this as a return of the whole method
+                return # steep:ignore
               end
             end
 

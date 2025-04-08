@@ -4,6 +4,12 @@
 
 module YardToRbsInline
   module Converter
+    # @rbs!
+    #   interface _TextWithModContainer
+    #     def text_with_mod: () -> TextWithMod
+    #   end
+
+    # @rbs module-self _TextWithModContainer
     module Subscriptable
       # @rbs!
       #   type subscriber = ^(String) -> void
@@ -13,9 +19,11 @@ module YardToRbsInline
         (@subscribers || []).each { |subscriber| subscriber.call(error_message) }
       end
 
+      # @rbs @subscribers: Array[subscriber]
+
       #: [X] (subscriber) { () -> X } -> X
       def capture_error_message(subscriber)
-        @subscribers ||= []
+        @subscribers ||= [] #: Array[subscriber]
         @subscribers.push(subscriber)
         yield
       ensure

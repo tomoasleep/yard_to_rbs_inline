@@ -46,14 +46,12 @@ end
 
 ---- footer
 
-module Yoda
-  module Parsing
-    module YardType
-      class Parser
-        # @rbs!
-        #   def parse: (String) -> Ast::node
-        #   def next_token: () -> untyped
-      end
+module YardToRbsInline
+  module YardType
+    class Parser
+      # @rbs!
+      #   def parse: (String) -> Ast::node
+      #   def next_token: () -> untyped
     end
   end
 end

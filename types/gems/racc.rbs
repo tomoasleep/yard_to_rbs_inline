@@ -1,0 +1,4 @@
+module Racc
+  class ParseError < StandardError
+  end
+end

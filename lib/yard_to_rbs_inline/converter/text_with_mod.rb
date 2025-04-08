@@ -4,7 +4,12 @@
 
 module YardToRbsInline
   module Converter
-    PrependLine = Data.define(:line_num, :content) do
+    class PrependLine < Data.define(:line_num, :content)
+      # @rbs!
+      #   def initialize: (line_num: Integer, content: String) -> void
+      #   attr_reader line_num: Integer
+      #   attr_reader content: String
+
       #: (Prism::Node, String) -> PrependLine
       def self.from_node_and_content(node, comment_content)
         start_line = node.location.start_line
@@ -16,14 +21,22 @@ module YardToRbsInline
       end
     end
 
-    AppendLineContent = Data.define(:line_num, :content) do
-      #: (Prism::Node, String) -> PrependLine
+    class AppendLineContent < Data.define(:line_num, :content)
+      # @rbs!
+      #   def initialize: (line_num: Integer, content: String) -> void
+      #   attr_reader line_num: Integer
+      #   attr_reader content: String
+
+      #: (Prism::Node, String) -> AppendLineContent
       def self.from_node_and_content(node, comment_content)
         start_line = node.location.start_line
 
         AppendLineContent.new(line_num: start_line, content: " #{comment_content}")
       end
     end
+
+    # @rbs!
+    #   type mod = PrependLine | AppendLineContent
 
     class TextWithMod
       attr_reader :original_text #: Prism::Source
@@ -37,8 +50,8 @@ module YardToRbsInline
       end
 
       def modified_text #: String
-        prepended_line_nums = []
-        mods.each_with_object(original_text.lines(chomp: true)) do |mod, source_lines|
+        prepended_line_nums = [] #: Array[String]
+        mods.each_with_object(original_text.lines.map(&:chomp)) do |mod, source_lines|
           real_line_num = mod.line_num + prepended_line_nums.map { |i| i <= mod.line_num }.length # 1-index
 
           case mod
